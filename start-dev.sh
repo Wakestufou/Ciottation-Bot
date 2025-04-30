@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Définir le nom du conteneur et de l'image dans des variables
-CONTAINER_NAME="bot-dev"
-IMAGE_NAME="bot-dev"
+CONTAINER_NAME="ciottation-bot-dev"
+IMAGE_NAME="ciottation-bot-dev"
 
 # Demander si tu veux rebuild l'image
 read -p "Voulez-vous reconstruire l'image de développement ? (y/n): " rebuild
