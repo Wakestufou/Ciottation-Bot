@@ -1,6 +1,6 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder, SlashCommandSubcommandsOnlyBuilder } from 'discord.js';
 
 export interface SlashCommand {
-    data: SlashCommandBuilder;
+    data: SlashCommandBuilder | SlashCommandSubcommandsOnlyBuilder;
     execute: Function;
 }

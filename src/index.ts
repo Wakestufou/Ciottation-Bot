@@ -4,6 +4,34 @@ import path from 'path';
 import { Event } from './types/Event';
 import 'dotenv/config';
 
+console.log('Lancement du bot...');
+console.log('Vérification de la BDD...');
+
+const filePath = path.join(__dirname, '..', 'bdd.json');
+
+if (!fs.existsSync(filePath)) {
+    console.error(
+        "La BDD n'existe pas ! Merci de créer le fichier bdd.json à la racine du projet en ce basant sur le fichier bdd.json.exemple !"
+    );
+    process.exit(1);
+} else {
+    try {
+        // Lire le fichier JSON en tant que chaîne de caractères
+        const data = fs.readFileSync(filePath, 'utf-8');
+
+        // Parser la chaîne de caractères en un objet JavaScript
+        const parsedData = JSON.parse(data);
+
+        // Vérifier si le contenu est bien un objet (et non un tableau ou autre)
+        typeof parsedData === 'object' && parsedData !== null && !Array.isArray(parsedData);
+    } catch (error) {
+        console.error('Erreur lors de la lecture ou du parsing du fichier JSON', error);
+        process.exit(1);
+    }
+
+    console.log('Bdd correct !');
+}
+
 const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates],
 });
