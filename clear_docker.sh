@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Nom des images Docker et des conteneurs
-PROD_IMAGE_NAME="bot-prod"
-DEV_IMAGE_NAME="bot-dev"
-PROD_CONTAINER_NAME="bot-prod"
-DEV_CONTAINER_NAME="bot-dev"
+PROD_IMAGE_NAME="ciottation-bot-prod"
+DEV_IMAGE_NAME="ciottation-bot-dev"
+PROD_CONTAINER_NAME="ciottation-bot-prod"
+DEV_CONTAINER_NAME="ciottation-bot-dev"
 
 # Afficher un message d'information
 echo "Nettoyage des ressources Docker pour le projet (production et développement)..."
