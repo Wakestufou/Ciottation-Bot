@@ -23,9 +23,14 @@ if (!fs.existsSync(filePath)) {
         const parsedData = JSON.parse(data);
 
         // Vérifier si le contenu est bien un objet (et non un tableau ou autre)
-        typeof parsedData === 'object' && parsedData !== null && !Array.isArray(parsedData);
+        if (!parsedData.hasOwnProperty('authors') || !parsedData.hasOwnProperty('quotes')) {
+            throw 'Base de donnée pas fonctionnel';
+        }
     } catch (error) {
-        console.error('Erreur lors de la lecture ou du parsing du fichier JSON', error);
+        console.error(
+            'Erreur lors de la lecture ou du parsing du fichier JSON (Vérifier que la base est celle du bdd.json.exemple) : ',
+            error
+        );
         process.exit(1);
     }
 
