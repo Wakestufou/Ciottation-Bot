@@ -153,3 +153,23 @@ export function getAllCitationFromUser(id: string, guild_id: string) {
             }),
     };
 }
+
+export function mergeUserAndCustom(guild_id: string, user: User, custom: string) {
+    const db: IBDD = loadDatabase();
+
+    if (!db.authors[guild_id][custom]) {
+        return false;
+    }
+
+    delete db.authors[guild_id][custom];
+
+    db.authors[guild_id][user.id].aliases.push(custom);
+
+    Object.entries(db.quotes[guild_id])
+        .filter(([key, quote]) => quote.authorId === custom)
+        .map((data) => (db.quotes[guild_id][data[0]].authorId = user.id));
+
+    saveDatabase(db);
+
+    return true;
+}

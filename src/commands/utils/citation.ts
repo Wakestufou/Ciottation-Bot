@@ -1,4 +1,4 @@
-import { MessageFlags, SlashCommandBuilder } from 'discord.js';
+import { InteractionContextType, MessageFlags, SlashCommandBuilder } from 'discord.js';
 import { ChatInputCommandInteraction } from 'discord.js';
 import { SlashCommand } from '../../types/SlashCommand';
 import {
@@ -106,6 +106,7 @@ const command: SlashCommand = {
     data: new SlashCommandBuilder()
         .setName('citation')
         .setDescription('Replies with Pong!')
+        .setContexts(InteractionContextType.Guild)
         .addSubcommand((subCommand) =>
             subCommand
                 .setName('create')
