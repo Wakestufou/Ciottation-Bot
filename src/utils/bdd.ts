@@ -39,7 +39,7 @@ export function createData(
         Object.entries(db.authors[guild_id]).find(([key, value]) =>
             value.aliases.find((alias) => alias.toLowerCase() === custom?.toLowerCase())
         )?.[0] ||
-        (custom as string);
+        (custom as string).toLowerCase();
 
     // Check if author is already saved
     if (!db.authors[guild_id][id]) {
@@ -78,12 +78,12 @@ export function getRandomCitationFromUser(id_user: string, guild_id: string) {
         return null;
     }
 
-    const authorId = author[0];
+    const authorId = author[0].toLowerCase();
     const authorValues = author[1];
 
     if (db.quotes[guild_id]) {
         const allQuotesUser = Object.entries(db.quotes[guild_id])
-            .filter(([key, value]) => value.authorId === authorId)
+            .filter(([key, value]) => value.authorId.toLowerCase() === authorId)
             .map((obj) => {
                 return obj[1];
             });
@@ -147,7 +147,7 @@ export function getAllCitationFromUser(id: string, guild_id: string) {
             ...userBdd[1],
         },
         quotes: Object.entries(db.quotes[guild_id])
-            .filter(([key, value]) => value.authorId === userBdd[0])
+            .filter(([key, value]) => value.authorId.toLowerCase() === userBdd[0].toLowerCase())
             .map((obj) => {
                 return obj[1].quote;
             }),
@@ -156,17 +156,18 @@ export function getAllCitationFromUser(id: string, guild_id: string) {
 
 export function mergeUserAndCustom(guild_id: string, user: User, custom: string) {
     const db: IBDD = loadDatabase();
+    const customLowerCase = custom.toLowerCase();
 
-    if (!db.authors[guild_id][custom]) {
+    if (!db.authors[guild_id][customLowerCase]) {
         return false;
     }
 
-    delete db.authors[guild_id][custom];
+    delete db.authors[guild_id][customLowerCase];
 
     db.authors[guild_id][user.id].aliases.push(custom);
 
     Object.entries(db.quotes[guild_id])
-        .filter(([key, quote]) => quote.authorId === custom)
+        .filter(([key, quote]) => quote.authorId === customLowerCase)
         .map((data) => (db.quotes[guild_id][data[0]].authorId = user.id));
 
     saveDatabase(db);

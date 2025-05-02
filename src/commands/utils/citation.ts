@@ -40,7 +40,7 @@ async function createSubCommand(interaction: ChatInputCommandInteraction, guild_
     createData(author, custom, guild_id, content, interaction.user.id);
 
     await interaction.reply({
-        content: `📚 Citation créée avec pour author : <@${author?.id || custom}>`,
+        content: `📚 Citation créée avec pour author : ${author ? `<@${author.id}>` : custom}`,
         flags: [MessageFlags.Ephemeral],
     });
 }
